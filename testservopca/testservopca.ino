@@ -1,50 +1,44 @@
+#include <cvzone.h>
 #include <HCPCA9685.h>
-
-/* Include the HCPCA9685 library */
 #include "HCPCA9685.h"
-
-/* I2C slave address for the device/module. For the HCMODU0097 the default I2C address
-   is 0x40 */
 #define  I2CAdd 0x40
 
-
-/* Create an instance of the library */
 HCPCA9685 HCPCA9685(I2CAdd);
+SerialData serialData(1,1); //(numOfValsRec,digitsPerValRec)
+int valsRec[1];
 
-
-void setup() 
-{
-  /* Initialise the library and set it to 'servo mode' */ 
+void setup(){
+  serialData.begin(9600);
   HCPCA9685.Init(SERVO_MODE);
-
-  /* Wake the device up */
   HCPCA9685.Sleep(false);
+  pinMode(13, OUTPUT);
+}
+void RotateForward(){ //For side 2,3,4
+  digitalWrite(13, HIGH); 
+  HCPCA9685.Servo(4,);
+  digitalWrite(13, LOW);
+}
+void RotateLeftAndForward(){ //5
+  digitalWrite(13, HIGH); 
+  HCPCA9685.Servo(5,);
+  RotateForward();
+}
+void RotateTwice(){ //6
+  RotateForward();
+  RotateForward();
 }
 
-
-void loop() 
-{
-  unsigned int Pos=400;//10=0,400=180
-
-  /* Sweep the servo back and forth from its minimum to maximum position.
-     If your servo is hitting its end stops then you  should adjust the 
-     values so that the servo can sweep though its full range without hitting
-     the end stops. You can adjust the min & max positions by altering 
-     the trim values in the libraries HCPCA9685.h file*/
-//  for(Pos = 10; Pos < 450; Pos++)
-//  {
-    /* This function sets the servos position. It takes two parameters, 
-     * the first is the servo to control, and the second is the servo 
-     * position. */
-    HCPCA9685.Servo(0, Pos);
-    HCPCA9685.Servo(8, Pos);
-    delay(10);
-//  }
-  
-//  for(Pos = 450; Pos >= 10; Pos--)
-//  {
-    HCPCA9685.Servo(0, Pos);
-     HCPCA9685.Servo(8, Pos);
-    delay(10);
-//  }
+void loop() {
+  serialData.Get(valsRec);
+  digitalWrite(13,valsRec[0]);  
+//  unsigned int Pos=10;//10=0,400=180
+//  HCPCA9685.Servo(1, Pos);
+//  HCPCA9685.Servo(2, Pos+50);
+//  delay(10);
+//  HCPCA9685.Servo(3, Pos+100);
+//  HCPCA9685.Servo(4, Pos+150);
+//  delay(10);
+//  HCPCA9685.Servo(5, Pos+200);
+//  delay(10);
 }
+
