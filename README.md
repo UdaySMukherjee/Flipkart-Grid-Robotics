@@ -61,7 +61,7 @@ This project was made possible by the hard work and dedication of our team. We e
 
 ## Contact
 
-For any questions, suggestions, or inquiries, please contact us at [contact@email.com](mailto:udaysankar2003@email.com).
+For any questions, suggestions, or inquiries, please contact us at [udaysankar2003@gmail.com](mailto:udaysankar2003@gmail.com).
 
 Thank you for using our Pick and Place Robot with QR Recognition system. We hope it streamlines your logistics and warehousing operations and improves efficiency.
 
